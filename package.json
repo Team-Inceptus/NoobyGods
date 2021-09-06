@@ -1,0 +1,43 @@
+{
+  "name": "NoobyBot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/builders": "^0.5.0",
+    "@discordjs/opus": "^0.4.0",
+    "@discordjs/rest": "0.1.0-canary.0",
+    "@tarp/require": "^1.4.3",
+    "canvas": "^2.8.0",
+    "discord-api-types": "^0.22.0",
+    "discord.js": "^13.0.1",
+    "express": "^4.17.1",
+    "ffmpeg-static": "^4.2.8",
+    "hypixel-api-reborn": "^5.1.1",
+    "mineflayer": "^3.7.0",
+    "mineflayer-tps": "^1.0.1",
+    "node-fetch": "^2.6.1",
+    "node-google-tts-api": "^1.1.1",
+    "node-linux-x64": "^16.6.1",
+    "prismarine-nbt": "^1.5.0",
+    "typescript": "^4.2.3"
+  },
+  "devDependencies": {
+    "node": "^16.6.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GamerCoder215/NoobyBot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GamerCoder215/NoobyBot/issues"
+  },
+  "homepage": "https://github.com/GamerCoder215/NoobyBot#readme",
+  "description": ""
+}

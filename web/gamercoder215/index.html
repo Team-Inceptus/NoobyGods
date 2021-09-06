@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>About GamerCoder215</title>
+		<link href="main.css" rel="stylesheet" type="text/css" />
+		<link rel="icon" href="gamercoder.png" />
+	</head>
+	<style>
+	@font-face {
+		font-family: GamerCoder215-Text;
+		src: url('fonts/text.ttf');
+	}
+
+
+	@keyframes show-bg {
+		from { background-color: #000000 }
+		to { background-color: #FFFFFF }
+	}
+
+	@keyframes show-bg-reverse {
+		from {background-color: #FFFFFF }
+		to {background-color: #000000 }
+	}
+
+	html, body {
+		overflow-x: hidden;
+		overflow-y: hidden;
+	}
+	body {
+		background-color: #000000;
+		animation-name: show-bg-reverse;
+		animation-duration: 2s;
+	}
+
+	.page {
+		background-color: white;
+		border-radius: 32px;
+		margin-left: 10%;
+		margin-right: 10%;
+		margin-top: 5%;
+		width: 80%;
+		height: 90%;
+		padding-bottom: 1%;
+		animation-name: show-bg;
+		animation-duration: 2s;
+	}
+
+	#logo {
+		border-radius: 50%;
+		margin-left: 45%;
+		margin-right: 45%;
+		margin-top: 3%;
+		height: 10%;
+		width: 10%;
+	}
+	#text {
+		font-family: GamerCoder215-Text;
+		font-size: 100%;
+		display: block;
+		text-align: center;
+		margin-bottom: 1.5%;
+		margin-top: 1.5%;
+		margin-left: 4px;
+		text-decoration: none;
+	}
+	#text-img {
+		width: 16px;
+		height: 16px;
+		margin-right: 2px;
+	}
+
+	</style>
+	<body>
+		<div class="page">
+		<img src="gamercoder.png" id="logo">
+		<p id="text" style="color: black; font-weight: bold; font-size: 150%;">GamerCoder215</p>
+
+		<p id="text" style="color: #7289DA;"><img src="text-imgs/discord.png" id="text-img"> GamerCoder215#2640</p>
+		<a id="text" style="color: darkgray" href="https://replit.com/@GamerCoder215" target="_blank"><img src="text-imgs/replit.png" id="text-img">@GamerCoder215</p>
+		<a id="text" style="color: #FCE24A;" href="https://hypixel.net/members/gamercoder215.2174247/" target="_blank"><img src="text-imgs/hypixel.png" id="text-img">GamerCoder215</a>
+		<a id="text" style="color: #ff0000" href="https://www.youtube.com/channel/UC89eYvGD3j_FmT-ymf18MBA" target="_blank"><img src="text-imgs/youtube.png" id="text-img">ツGamerCoder215</a>
+		<a id="text" style="color: #ff0000" href="https://www.reddit.com/user/GamerCoder215" target="_blank"><img src="text-imgs/reddit.png" id="text-img">GamerCoder215</a>
+		</div>
+	</body>
+</html>
