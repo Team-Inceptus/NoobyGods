@@ -1,7 +1,10 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-	name: 'bazaar',
-	aliases: ['bazar', 'bzr', 'bazr', 'bzaar'],
-	async run(client, message, args) {
+	data: new SlashCommandBuilder()
+	.setName("bazaar")
+	.setDescription("NoobyBot's Bazaar Portal"),
+	async run(client, interaction) {
 		const Discord = require('discord.js');
 		const config = require('../config.json');
 		const Hypixel = require('hypixel-api-reborn');
@@ -15,17 +18,17 @@ module.exports = {
 		.setTimestamp();
 		try {
 			const bazaarEmbed = new Discord.MessageEmbed()
-			.setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 }))
+			.setAuthor(interaction.user.username, interaction.user.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 }))
 			.setDescription(`Welcome to NoobyBot's Bazaar Portal. Type any item at any time to see its status. (If you get one wrong, you can keep trying by typing it again.) This message will time out in 3 minutes.`)
 			.setColor(config.emerald)
 			.setFooter(config.name, config.icon)
 			.setTimestamp();
-			const bazaarM = await message.channel.send({ embeds: [bazaarEmbed]});
+			const bazaarM = await interaction.reply({ embeds: [bazaarEmbed]});
 			const products = await hypixel.getSkyblockBazaar();
 
-			const bazaarFilter = msg => msg.author.id === message.author.id && !msg.author.bot;
+			const bazaarFilter = msg => msg.author.id === interaction.user.id && !msg.author.bot;
 
-			const bazaarCollector = message.channel.createMessageCollector(bazaarFilter, { time: 180000 })
+			const bazaarCollector = interaction.channel.createMessageCollector(bazaarFilter, { time: 180000 })
 
 			function checkExistingProduct(name) {
 				let i = 0;
@@ -63,7 +66,7 @@ module.exports = {
 			})
 		} catch (error) {
 			console.error(error);
-			message.reply(config.error);
+			interaction.reply(config.error);
 		}
 	}
 }

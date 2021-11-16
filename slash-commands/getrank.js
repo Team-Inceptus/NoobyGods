@@ -46,31 +46,35 @@ module.exports = {
 			]
 			await interaction.reply('Calculating Rank...');
 			function giveBackRank() {
-			// Giving back rank
-			let finalscore = sbscore + score;
-			let rank = 'Unknown';
-			let usedsb = ' not ';
-			if (sbused === true) usedsb = ' ';
-			if (finalscore < 1000 && finalscore > 0) rank = ranks[0];
-			if (finalscore > 1000 && finalscore < 2100) {
-				rank = ranks[1];
-			}
-			if (finalscore > 2100 && finalscore < 4000) {
-				rank = ranks[2];
-			}
-			if (finalscore > 4000) {
-				rank = ranks[3];
-			}
+				// Giving back rank
+				let finalscore = sbscore + score;
+				let rank = 'Unknown';
+				let usedsb = ' not ';
+				if (sbused === true) usedsb = ' ';
+				if (finalscore < 2500 && finalscore > 0) rank = ranks[0];
+				if (finalscore > 2500 && finalscore < 6800) {
+					rank = ranks[1];
+				}
+				if (finalscore > 6800 && finalscore < 10000) {
+					rank = ranks[2];
+				}
+				if (finalscore > 10000) {
+					rank = ranks[3];
+				}
 
-			const rankedEmbed = new Discord.MessageEmbed()
-			.setColor(config.emerald)
-			.setAuthor(interaction.user.username, interaction.user.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 }))
-			.setDescription(`You have${usedsb}used skyblock stats.\n\nYour final score was \`${finalscore}\`.\n\nYour calculated rank is **${rank.rank}**!`)
-			.setFooter(config.name, config.icon)
-			.setTimestamp();
-			
-			if (sbused === false) rankedEmbed.addField(`You have not supplied Skyblock Stats. If you want to add skyblock stats to your calculation, include a profile name after the player name.`, 'Examples: \n\`/getrank GamerCoder215 Pear\`\n\`/getrank GamerCoder215 Mango\`');
-			interaction.channel.send({ embeds: [rankedEmbed]});
+				const rankedEmbed = new Discord.MessageEmbed()
+				.setColor(config.emerald)
+				.setAuthor(interaction.user.username, interaction.user.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 }))
+				.setDescription(`You have${usedsb}used skyblock stats.\n\nYour final score was \`${finalscore}\`.\n\nYour calculated rank is **${rank.rank}**!`)
+				.setFooter(config.name, config.icon)
+				.setTimestamp();
+				
+				if (sbused === false) rankedEmbed.addField(`You have not supplied Skyblock Stats. If you want to add skyblock stats to your calculation, include a profile name after the player name.`, 'Examples: \n\`/getrank GamerCoder215 Pear\`\n\`/getrank GamerCoder215 Mango\`');
+
+				if (finalscore > 30000) {
+					rankedEmbed.addField(`This person is eligible for JujuSpoonNons!`, `If you are this person, open a ticket showing this message, telling them that you are this person and ready to join.\n**Identity Theft is a federal crime and will cause a ban from __BOTH__ guilds. This behavior will not be tolerated under any circumstances. If under more suspicion, we will alert the authorities.**`);
+				}
+				interaction.channel.send({ embeds: [rankedEmbed]});
 			}
 			let sbscore = 0;
 			let score = 0;
@@ -266,7 +270,7 @@ module.exports = {
 					memberstats.pets.forEach(calcPetScore);
 					sbscore += petscore;
 
-					let grindScore = Math.floor((memberstats.stats.kills - memberstats.stats.deaths) / 100)
+					let grindScore = Math.floor((memberstats.stats.kills - memberstats.stats.deaths) / 95)
 
 					sbscore += grindScore;
 					
@@ -278,7 +282,7 @@ module.exports = {
 
 					sbscore += questScore;
 
-					let explorerScore = memberstats.visited_zones ? Math.floor(memberstats.visited_zones.length / 3) : 0;
+					let explorerScore = memberstats.visited_zones ? Math.floor(memberstats.visited_zones.length / 2.5) : 0;
 
 					sbscore += explorerScore;
 
@@ -291,9 +295,34 @@ module.exports = {
 
 					let dianaScore = 0;
 					if (memberstats.griffin) {
-						dianaScore = memberstats.griffin.burrows.length * 3;
+						dianaScore = memberstats.griffin.burrows.length * 4;
 					}
 					sbscore += dianaScore;
+
+					let dwarvenScore = 0;
+					let powderScore = 0;
+					let nodeScore = 0;
+					let tokenScore = 0;
+
+					if (memberstats.mining_core) {
+						tokenScore = ((memberstats.mining_core.tokens ? memberstats.mining_core.tokens : 0) + (memberstats.mining_core.tokens_spent ? memberstats.mining_core.tokens_spent : 0)) * 5;
+						
+						powderScore = Math.floor(((memberstats.mining_core.powder_mithril_total ? memberstats.mining_core.powder_mithril_total : 0) + (memberstats.mining_core.powder_spent_mithril ? memberstats.mining_core.powder_spent_mithril : 0)) / 100);
+
+						Object.values(memberstats.mining_core.nodes).forEach((lvl) => {
+							nodeScore += Math.floor(lvl / 4);
+						});
+
+						nodeScore += Math.floor((memberstats.mining_core.experience ? memberstats.mining_core.experience : 0) / 100);
+
+						dwarvenScore += tokenScore;
+						dwarvenScore += powderScore;
+						dwarvenScore += nodeScore;
+					}
+
+					sbscore += dwarvenScore;
+
+
 
 					function calculateRarityMultiplier(rarityString) {
 						if (rarityString.includes("§f")) return 1;
@@ -416,7 +445,7 @@ module.exports = {
 				const skyblockEmbed = new Discord.MessageEmbed()
 				.setColor(config.emerald)
 				.setAuthor(interaction.user.username, interaction.user.displayAvatarURL({ dynamic: true, format: 'png', size: 1024 }))
-				.setDescription(`You scored **${armorScore}** in Armor.\nYou scored **${talismanScore}** in talismans.\nYou scored **${petscore}** in pets.\nYou scored **${skillscore}** in skills.\nYou scored **${slayerscore}** in slayers.\nYou scored **${dungeonscore}** in dungeons.\nYou scored **${collectionscore}** in collections (Number of tiers unlocked / 3).\nYou scored **${fairyscore}** in fairy souls (Total Amount / 2).\nYou scored **${jacobscore}** in Jacob Medals.\nYou scored **${grindScore}** in grinding.\n You scored **${questScore}** in quests and **${objectiveScore}** in objectives.\nYou scored **${explorerScore}** in exploring.\nYou scored **${minionscore}** in minion crafting.\n\nYour Skyblock Score is **${sbscore}** (*It is possible your stats are bugged so this can also be your final score*).`)
+				.setDescription(`You scored **${armorScore}** in Armor.\nYou scored **${talismanScore}** in talismans.\nYou scored **${petscore}** in pets.\nYou scored **${skillscore}** in skills.\nYou scored **${slayerscore}** in slayers.\nYou scored **${dungeonscore}** in dungeons.\nYou scored **${collectionscore}** in collections (Number of tiers unlocked / 3).\nYou scored **${fairyscore}** in fairy souls (Total Amount / 2).\nYou scored **${jacobscore}** in Jacob Medals.\nYou scored **${grindScore}** in grinding.\n You scored **${questScore}** in quests and **${objectiveScore}** in objectives.\nYou scored **${explorerScore}** in exploring.\nYou scored **${minionscore}** in minion crafting.\n\n__Dwarven Score__\nYou scored **${powderScore}** for your Powder Score.\nYou Scored **${tokenScore}** for your Token Score.\nYou scored **${nodeScore}** for your Node Score.\nYour total Dwarven Score is **${dwarvenScore}**.\n\nYour Skyblock Score is **${sbscore}** (*It is possible your stats are bugged so this can also be your final score*).`)
 				.setFooter(config.name, config.icon)
 				.setTimestamp();
 				interaction.channel.send({ embeds: [skyblockEmbed]});

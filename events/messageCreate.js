@@ -2,15 +2,13 @@ module.exports = async (client, message) => {
 	if (message.author.bot) return;
 	if (message.channel.type === 'dm') return;
 	const Discord = require('discord.js');
-	
-    const { bot } = require('../index.js');
-    
-    if (message.channel.id == '863587484074901505') {
-        
-        let nick = message.author.username;
-        
-        bot.chat(`/gc [${nick}] ${message.content}`)
-    }
+
+	const { bot } = require('../index.js');
+	if (message.channel.id == '907803778823110656') {
+		let nick = message.author.username;
+		
+		bot.chat(`/gc [${nick}] ${message.content}`)
+	}
 	var prefix = '/'
 	var prefix2 = '-';
   const args = message.content.slice(prefix.length).trim().split(/ +/);
