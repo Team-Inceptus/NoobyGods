@@ -1,1 +1,1 @@
-worker:bash node.sh
+worker: bash node.sh
