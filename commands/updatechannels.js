@@ -11,12 +11,10 @@ module.exports = {
 		const hypixel = new Hypixel.Client(process.env.HYPIXEL_TOKEN);
 		try {
 		const guild = await hypixel.getGuild('player', 'GamerCoder215');
-		const spoonGuild = await hypixel.getGuild('player', 'amanaran1');
 		const dguild = message.guild;
 		let oldDiscordName = client.channels.cache.get('811266928706060319').name;
 		let oldname = client.channels.cache.get('811266809353076737').name;
 		let oldchannelcount = client.channels.cache.get('863431471178973214').name;
-		let oldnamespoon = client.channels.cache.get('907800821973024788').name;
 
 		const channelsUpdated = new Discord.MessageEmbed()
 		.setColor(config.emerald)
@@ -27,11 +25,6 @@ module.exports = {
 		if (oldname !== `TNG Guild Members: ${guild.members.length}`) {
 			channelsUpdated.addField(`New Name: "TNG Guild Members: ${guild.members.length}"`, `Old Name: "${oldname}"`);
 			client.channels.cache.get('811266809353076737').setName(`TNG Guild Members: ${guild.members.length}`)
-		}
-
-		if (oldnamespoon !== `JSN Guild Members: ${spoonGuild.members.length}`) {
-			channelsUpdated.addField(`New Name: "JSN Guild Members: ${spoonGuild.members.length}"`, `Old Name: "${oldnamespoon}"`);
-			client.channels.cache.get('907800821973024788').setName(`JSN Guild Members: ${spoonGuild.members.length}`);
 		}
 
 		if (oldchannelcount !== `Channel Count: ${dguild.channels.cache.size}`) {
