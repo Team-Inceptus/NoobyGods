@@ -70,10 +70,7 @@ module.exports = {
 				.setTimestamp();
 				
 				if (sbused === false) rankedEmbed.addField(`You have not supplied Skyblock Stats. If you want to add skyblock stats to your calculation, include a profile name after the player name.`, 'Examples: \n\`/getrank GamerCoder215 Pear\`\n\`/getrank GamerCoder215 Mango\`');
-
-				if (finalscore > 30000) {
-					rankedEmbed.addField(`This person is eligible for JujuSpoonNons!`, `If you are this person, open a ticket showing this message, telling them that you are this person and ready to join.\n**Identity Theft is a federal crime and will cause a ban from __BOTH__ guilds. This behavior will not be tolerated under any circumstances. If under more suspicion, we will alert the authorities.**`);
-				}
+				
 				interaction.channel.send({ embeds: [rankedEmbed]});
 			}
 			let sbscore = 0;
