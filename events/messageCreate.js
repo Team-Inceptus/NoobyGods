@@ -22,7 +22,7 @@ module.exports = async (client, message) => {
 			'707036253048012851'
 		]
 		if (command.disabled && message.author.id !== '572173428086538270') return message.channel.send('This command has been temporarily disabled. Please check back later.');
-		if (command.admin && !message.member.roles.cache.has('801501790939906048')) return message.channel.send('This command is for Admins and Owners of the guild only.');
+		if (command.admin && !message.member.roles.cache.has('801501790939906048') && !message.member.roles.cache.has('821184343065100338')) return message.channel.send('This command is for Admins and Owners of the guild only.');
 		if (command.owner && message.author.id !== '572173428086538270') return message.channel.send('This command is for the Owner of the guild only.');
 		if (message.channel.id !== '801503200846282823' && message.channel.id !== '806538507614552104' && message.channel.id !== '806538708680966144' && message.channel.id !== '802331427466903552' && message.channel.id !== '801515793044340757' && command.name !== 'suggest' && command.name !== 'assertdominance' && command.name !== 'smp') {
 			return message.channel.send(`This is not a bot commands channel.`)
